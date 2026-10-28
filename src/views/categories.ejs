@@ -1,17 +1,51 @@
 
 <%- include('partials/header') %>
 
-<main id="main-content">
-    <h1><%= title %></h1>
+<main id="main-content" class="interior-main">
 
-    <p>Explore our service project categories:</p>
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">AREAS OF ACTION</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            Discover the different areas where community
+            service can make a meaningful difference.
+        </p>
+    </section>
 
-    <ul>
-        <li>Environment</li>
-        <li>Education</li>
-        <li>Community Service</li>
-        <li>Health and Wellness</li>
-    </ul>
+    <section class="content-section" aria-labelledby="categories-heading">
+        <h2 id="categories-heading" class="section-title">
+            Explore Service Categories
+        </h2>
+
+        <div class="service-category-grid">
+
+            <article class="service-category-card">
+                <span class="category-number">01 / ENVIRONMENT</span>
+                <h3>Environment</h3>
+                <p>Support initiatives that protect and improve our environment.</p>
+            </article>
+
+            <article class="service-category-card">
+                <span class="category-number">02 / EDUCATION</span>
+                <h3>Education</h3>
+                <p>Help create learning opportunities and support education.</p>
+            </article>
+
+            <article class="service-category-card">
+                <span class="category-number">03 / COMMUNITY</span>
+                <h3>Community Service</h3>
+                <p>Participate in activities that strengthen local communities.</p>
+            </article>
+
+            <article class="service-category-card">
+                <span class="category-number">04 / WELLNESS</span>
+                <h3>Health and Wellness</h3>
+                <p>Contribute to initiatives focused on health and well-being.</p>
+            </article>
+
+        </div>
+    </section>
+
 </main>
 
 <%- include('partials/footer') %>

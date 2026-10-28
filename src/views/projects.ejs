@@ -1,16 +1,54 @@
 
 <%- include('partials/header') %>
 
-<main id="main-content">
-    <h1><%= title %></h1>
+<main id="main-content" class="interior-main">
 
-    <h2>Upcoming Service Projects</h2>
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">SERVICE OPPORTUNITIES</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            Explore meaningful opportunities to contribute
+            to stronger communities.
+        </p>
+    </section>
 
-    <ul>
-        <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-        <li>Food Drive - Help collect and distribute food to those in need.</li>
-        <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
-    </ul>
+    <section class="content-section" aria-labelledby="projects-heading">
+        <h2 id="projects-heading" class="section-title">
+            Upcoming Service Projects
+        </h2>
+
+        <div class="project-grid">
+
+            <article class="project-card">
+                <span class="project-number">01 / ENVIRONMENT</span>
+                <h3>Park Cleanup</h3>
+                <p>
+                    Join us to clean up local parks
+                    and make them beautiful!
+                </p>
+            </article>
+
+            <article class="project-card">
+                <span class="project-number">02 / COMMUNITY</span>
+                <h3>Food Drive</h3>
+                <p>
+                    Help collect and distribute food
+                    to those in need.
+                </p>
+            </article>
+
+            <article class="project-card">
+                <span class="project-number">03 / EDUCATION</span>
+                <h3>Community Tutoring</h3>
+                <p>
+                    Volunteer to tutor students
+                    in various subjects.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
 </main>
 
 <%- include('partials/footer') %>

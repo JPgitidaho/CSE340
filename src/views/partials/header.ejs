@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CSE 340 Service Network connects volunteers with community service opportunities.">
+    <meta name="description" content="Discover community service organizations, projects and opportunities through CSE 340 Service Network.">
+    <meta name="theme-color" content="#142f45">
     <title><%= title %> | CSE 340 Service Network</title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
@@ -13,18 +14,43 @@
 
     <header class="site-header">
         <div class="header-container">
-            <a class="site-brand" href="/">
-                <span class="brand-icon" aria-hidden="true">✦</span>
-                <span>CSE 340 <strong>Service Network</strong></span>
+
+            <a class="site-brand" href="/" aria-label="CSE 340 Service Network - Home">
+                <span class="brand-symbol" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+                <span class="brand-name">
+                    <strong>CSE 340</strong>
+                    <span>Service Network</span>
+                </span>
             </a>
 
-            <nav class="main-nav" aria-label="Main navigation">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/organizations">Organizations</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                    <li><a href="/categories">Categories</a></li>
-                </ul>
-            </nav>
+
+<nav class="main-nav" aria-label="Main navigation">
+    <ul>
+        <li>
+            <a href="/" <% if (title === 'Home') { %>aria-current="page"<% } %>>
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="/organizations" <% if (title === 'Our Partner Organizations') { %>aria-current="page"<% } %>>
+                Organizations
+            </a>
+        </li>
+        <li>
+            <a href="/projects" <% if (title === 'Service Projects') { %>aria-current="page"<% } %>>
+                Projects
+            </a>
+        </li>
+        <li>
+            <a href="/categories" <% if (title === 'Service Project Categories') { %>aria-current="page"<% } %>>
+                Categories
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
         </div>
     </header>

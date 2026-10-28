@@ -1,14 +1,85 @@
-
 <%- include('partials/header') %>
 
-<main id="main-content">
-    <h1><%= title %></h1>
+    <main id="main-content" class="home-main">
 
-    <h2>Welcome to the CSE 340 Service Network!</h2>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <p class="eyebrow">CSE 340 SERVICE NETWORK</p>
 
-    <p>Our mission is to promote service across the world by connecting volunteers with service opportunities in their community.</p>
+                <h1 id="hero-title">Good work starts with a connection.</h1>
 
-    <img class="main-logo" src="/images/cse340-service-network.png" alt="CSE 340 Service Network Logo">
-</main>
+                <p class="hero-description">
+                    Discover organizations, explore service projects,
+                    and find meaningful ways to contribute to your community.
+                </p>
 
-<%- include('partials/footer') %>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="/projects">Explore Projects</a>
+                    <a class="btn btn-secondary" href="/organizations">Discover Organizations</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <img src="/images/cse340-service-network.png" alt="CSE 340 Service Network" width="380" height="380">
+            </div>
+        </section>
+
+        <section class="explore-section" aria-labelledby="explore-title">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">AREAS OF ACTION</p>
+                    <h2 id="explore-title">Explore the network</h2>
+                </div>
+                <a class="section-link" href="/categories">View all categories</a>
+            </div>
+            <div class="category-grid">
+                <a class="category-card" href="/categories">
+                    <div class="category-card-top">
+                        <span class="category-icon" aria-hidden="true">✳</span>
+                        <span class="category-number">01</span>
+                    </div>
+                    <div>
+                        <h3>Environment</h3>
+                        <p>Support projects that care for our planet.</p>
+                    </div>
+                </a>
+
+                <a class="category-card" href="/categories">
+                    <div class="category-card-top">
+                        <span class="category-icon" aria-hidden="true">✦</span>
+                        <span class="category-number">02</span>
+                    </div>
+                    <div>
+                        <h3>Education</h3>
+                        <p>Help create opportunities for learning.</p>
+                    </div>
+                </a>
+
+                <a class="category-card" href="/categories">
+                    <div class="category-card-top">
+                        <span class="category-icon" aria-hidden="true">✳</span>
+                        <span class="category-number">03</span>
+                    </div>
+                    <div>
+                        <h3>Community Service</h3>
+                        <p>Strengthen connections in your community.</p>
+                    </div>
+                </a>
+
+                <a class="category-card" href="/categories">
+                    <div class="category-card-top">
+                        <span class="category-icon" aria-hidden="true">✦</span>
+                        <span class="category-number">04</span>
+                    </div>
+                    <div>
+                        <h3>Health & Wellness</h3>
+                        <p>Contribute to healthier communities.</p>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <%- include('partials/footer') %>

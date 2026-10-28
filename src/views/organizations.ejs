@@ -1,26 +1,53 @@
+
 <%- include('partials/header') %>
 
-    <main id="main-content">
-        <h1>
-            <%= title %>
-        </h1>
+<main id="main-content" class="interior-main">
 
-        <p>Here are a few of our partner organizations:</p>
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">OUR NETWORK</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            Meet the organizations contributing to stronger,
+            more connected communities.
+        </p>
+    </section>
 
-        <ul>
-            <li>
-                <img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo">
-                <strong>BrightFuture Builders</strong>: info@brightfuture.org
-            </li>
-            <li>
-                <img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo">
-                <strong>GreenHarvest Growers</strong>: contact@greenharvest.org
-            </li>
-            <li>
-                <img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo">
-                <strong>UnityServe Volunteers</strong>: hello@unityserve.org
-            </li>
-        </ul>
-    </main>
+    <section class="content-section" aria-label="Partner organizations">
+        <div class="organization-grid">
 
-    <%- include('partials/footer') %>
+            <article class="organization-card">
+                <img src="/images/brightfuture-logo.png"
+                     alt="BrightFuture Builders logo"
+                     width="120" height="120">
+                <h2>BrightFuture Builders</h2>
+                <a href="mailto:info@brightfuture.org">
+                    info@brightfuture.org
+                </a>
+            </article>
+
+            <article class="organization-card">
+                <img src="/images/greenharvest-logo.png"
+                     alt="GreenHarvest Growers logo"
+                     width="120" height="120">
+                <h2>GreenHarvest Growers</h2>
+                <a href="mailto:contact@greenharvest.org">
+                    contact@greenharvest.org
+                </a>
+            </article>
+
+            <article class="organization-card">
+                <img src="/images/unityserve-logo.png"
+                     alt="UnityServe Volunteers logo"
+                     width="120" height="120">
+                <h2>UnityServe Volunteers</h2>
+                <a href="mailto:hello@unityserve.org">
+                    hello@unityserve.org
+                </a>
+            </article>
+
+        </div>
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>
