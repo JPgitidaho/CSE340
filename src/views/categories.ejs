@@ -19,29 +19,15 @@
 
         <div class="service-category-grid">
 
-            <article class="service-category-card">
-                <span class="category-number">01 / ENVIRONMENT</span>
-                <h3>Environment</h3>
-                <p>Support initiatives that protect and improve our environment.</p>
-            </article>
+            <% categories.forEach((category, index) => { %>
+                <article class="service-category-card">
+                    <span class="category-number">
+                        <%= String(index + 1).padStart(2, '0') %>
+                    </span>
 
-            <article class="service-category-card">
-                <span class="category-number">02 / EDUCATION</span>
-                <h3>Education</h3>
-                <p>Help create learning opportunities and support education.</p>
-            </article>
-
-            <article class="service-category-card">
-                <span class="category-number">03 / COMMUNITY</span>
-                <h3>Community Service</h3>
-                <p>Participate in activities that strengthen local communities.</p>
-            </article>
-
-            <article class="service-category-card">
-                <span class="category-number">04 / WELLNESS</span>
-                <h3>Health and Wellness</h3>
-                <p>Contribute to initiatives focused on health and well-being.</p>
-            </article>
+                    <h3><%= category.name %></h3>
+                </article>
+            <% }); %>
 
         </div>
     </section>
