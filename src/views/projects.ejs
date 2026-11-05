@@ -1,48 +1,56 @@
-
 <%- include('partials/header') %>
 
-<main id="main-content" class="interior-main">
+    <main id="main-content" class="interior-main">
 
-    <section class="page-intro" aria-labelledby="page-title">
-        <p class="eyebrow">SERVICE OPPORTUNITIES</p>
-        <h1 id="page-title"><%= title %></h1>
-        <p class="page-description">
-            Explore meaningful opportunities to contribute
-            to stronger communities.
-        </p>
-    </section>
+        <section class="page-intro" aria-labelledby="page-title">
+            <p class="eyebrow">SERVICE OPPORTUNITIES</p>
+            <h1 id="page-title">
+                <%= title %>
+            </h1>
+            <p class="page-description">
+                Explore meaningful opportunities to contribute
+                to stronger communities.
+            </p>
+        </section>
 
-    <section class="content-section" aria-labelledby="projects-heading">
-        <h2 id="projects-heading" class="section-title">
-            Upcoming Service Projects
-        </h2>
+        <section class="content-section" aria-labelledby="projects-heading">
+            <h2 id="projects-heading" class="section-title">
+                Upcoming Service Projects
+            </h2>
 
-        <div class="project-grid">
+            <div class="project-grid">
 
-            <% projects.forEach((project, index) => { %>
-                <article class="project-card">
+                <% projects.forEach((project, index)=> { %>
+                    <article class="project-card">
 
-                    <span class="project-number">
-                        <%= String(index + 1).padStart(2, '0') %>
-                    </span>
+                        <span class="project-number">
+                            <%= String(index + 1).padStart(2, '0' ) %>
+                        </span>
 
-                    <h3><%= project.title %></h3>
+                        <h3>
+                            <%= new Date(project.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>:
+                                <%= project.title %>
+                                    (<%= project.organization_name %>)
+                        </h3>
+                        <p>
+                            <%= project.description %>
+                        </p>
 
-                    <p><%= project.description %></p>
+                        <p><strong>Location:</strong>
+                            <%= project.location %>
+                        </p>
 
-                    <p><strong>Location:</strong> <%= project.location %></p>
+                        <p>
+                            <strong>Date:</strong>
+                            <%= new Date(project.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>
+                        </p>
 
-                    <p>
-                        <strong>Date:</strong>
-                        <%= new Date(project.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>
-                    </p>
+                    </article>
+                    <% }); %>
 
-                </article>
-            <% }); %>
+            </div>
+        </section>
 
-        </div>
-    </section>
+    </main>
 
-</main>
-
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
