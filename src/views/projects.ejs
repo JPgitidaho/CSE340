@@ -21,31 +21,37 @@
             <div class="project-grid">
 
                 <% projects.forEach((project, index)=> { %>
-                    <article class="project-card">
 
+                    <article class="project-card">
                         <span class="project-number">
-                            <%= String(index + 1).padStart(2, '0' ) %>
+                            PROJECT <%= String(index + 1).padStart(2, '0' ) %>
                         </span>
 
-                        <h3>
-                            <%= new Date(project.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>:
+                        <h3 class="project-heading">
+                            <span class="project-date">
+                                <%= new Date(project.date).toLocaleDateString('en-US', { month: 'short' , day: 'numeric'
+                                    , year: 'numeric' , timeZone: 'UTC' }) %>:
+                            </span>
+
+                            <span class="project-title">
                                 <%= project.title %>
-                                    (<%= project.organization_name %>)
+                            </span>
+
+                            <span class="project-organization">
+                                (<%= project.organization_name %>)
+                            </span>
                         </h3>
-                        <p>
+
+                        <p class="project-description">
                             <%= project.description %>
                         </p>
 
-                        <p><strong>Location:</strong>
+                        <p class="project-location">
+                            <strong>Location:</strong>
                             <%= project.location %>
                         </p>
-
-                        <p>
-                            <strong>Date:</strong>
-                            <%= new Date(project.date).toLocaleDateString('en-US', { timeZone: 'UTC' }) %>
-                        </p>
-
                     </article>
+
                     <% }); %>
 
             </div>
