@@ -1,6 +1,44 @@
 
 <%- include('partials/header') %>
 
+<section class="content-section" aria-labelledby="organization-projects">
+    <h2 id="organization-projects" class="section-title">
+        Organization Projects
+    </h2>
+
+    <% if (projects.length === 0) { %>
+        <p>No projects are available for this organization.</p>
+    <% } else { %>
+        <div class="project-grid">
+            <% projects.forEach(project => { %>
+                <article class="project-card">
+                    <h3>
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.title %>
+                        </a>
+                    </h3>
+
+                    <p>
+                        <strong>Date:</strong>
+                        <%= new Date(project.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            timeZone: 'UTC'
+                        }) %>
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        <%= project.location %>
+                    </p>
+                </article>
+            <% }); %>
+        </div>
+    <% } %>
+</section>
+
+
 <main id="main-content" class="interior-main">
 
     <section class="page-intro" aria-labelledby="page-title">
