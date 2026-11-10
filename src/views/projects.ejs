@@ -1,62 +1,59 @@
+
 <%- include('partials/header') %>
 
-    <main id="main-content" class="interior-main">
+<main id="main-content" class="interior-main">
 
-        <section class="page-intro" aria-labelledby="page-title">
-            <p class="eyebrow">SERVICE OPPORTUNITIES</p>
-            <h1 id="page-title">
-                <%= title %>
-            </h1>
-            <p class="page-description">
-                Explore meaningful opportunities to contribute
-                to stronger communities.
-            </p>
-        </section>
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">SERVICE OPPORTUNITIES</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            Explore upcoming service projects and the organizations
+            making a difference in our communities.
+        </p>
+    </section>
 
-        <section class="content-section" aria-labelledby="projects-heading">
-            <h2 id="projects-heading" class="section-title">
-                Upcoming Service Projects
-            </h2>
+    <section class="content-section" aria-label="Upcoming service projects">
+
+        <% if (projects.length === 0) { %>
+            <p>No upcoming service projects are available.</p>
+        <% } else { %>
 
             <div class="project-grid">
 
-                <% projects.forEach((project, index)=> { %>
-
+                <% projects.forEach(project => { %>
                     <article class="project-card">
-                        <span class="project-number">
-                            PROJECT <%= String(index + 1).padStart(2, '0' ) %>
-                        </span>
 
-                        <h3 class="project-heading">
-                            <span class="project-date">
-                                <%= new Date(project.date).toLocaleDateString('en-US', { month: 'short' , day: 'numeric'
-                                    , year: 'numeric' , timeZone: 'UTC' }) %>:
-                            </span>
+                        <p class="project-number">
+                            <%= new Date(project.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                timeZone: 'UTC'
+                            }) %>
+                        </p>
 
-                            <span class="project-title">
+                        <h2>
+                            <a href="/project/<%= project.project_id %>">
                                 <%= project.title %>
-                            </span>
+                            </a>
+                        </h2>
 
-                            <span class="project-organization">
-                                (<%= project.organization_name %>)
-                            </span>
-                        </h3>
-
-                        <p class="project-description">
-                            <%= project.description %>
+                        <p>
+                            Organization:
+                            <a href="/organization/<%= project.organization_id %>">
+                                <%= project.organization_name %>
+                            </a>
                         </p>
 
-                        <p class="project-location">
-                            <strong>Location:</strong>
-                            <%= project.location %>
-                        </p>
                     </article>
-
-                    <% }); %>
+                <% }); %>
 
             </div>
-        </section>
 
-    </main>
+        <% } %>
 
-    <%- include('partials/footer') %>
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

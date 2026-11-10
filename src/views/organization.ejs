@@ -1,0 +1,44 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">PARTNER ORGANIZATION</p>
+        <h1 id="page-title"><%= organization.name %></h1>
+        <p class="page-description">
+            <%= organization.description %>
+        </p>
+    </section>
+
+    <section class="content-section" aria-label="Organization information">
+
+        <article class="organization-card">
+
+            <img
+                src="/images/<%= organization.logo_filename %>"
+                alt="<%= organization.name %> logo"
+                width="120"
+                height="120"
+            >
+
+            <h2>Contact Information</h2>
+
+            <p>
+                <strong>Email:</strong>
+                <a href="mailto:<%= organization.contact_email %>">
+                    <%= organization.contact_email %>
+                </a>
+            </p>
+
+            <p>
+                <a href="/organizations">Back to Organizations</a>
+            </p>
+
+        </article>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

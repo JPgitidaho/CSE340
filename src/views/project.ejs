@@ -1,0 +1,46 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">SERVICE PROJECT DETAILS</p>
+        <h1 id="page-title"><%= project.title %></h1>
+        <p class="page-description"><%= project.description %></p>
+    </section>
+
+    <section class="content-section" aria-label="Project information">
+        <article class="project-card">
+            <h2>Project Information</h2>
+
+            <p>
+                <strong>Date:</strong>
+                <%= new Date(project.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    timeZone: 'UTC'
+                }) %>
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                <%= project.location %>
+            </p>
+
+            <p>
+                <strong>Organization:</strong>
+                <a href="/organization/<%= project.organization_id %>">
+                    <%= project.organization_name %>
+                </a>
+            </p>
+
+            <p>
+                <a href="/projects">Back to Projects</a>
+            </p>
+        </article>
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>
