@@ -1,39 +1,45 @@
-
 <%- include('partials/header') %>
 
-<main id="main-content" class="interior-main">
+    <main id="main-content" class="interior-main">
 
-    <section class="page-intro" aria-labelledby="page-title">
-        <p class="eyebrow">OUR NETWORK</p>
-        <h1 id="page-title"><%= title %></h1>
-        <p class="page-description">
-            Meet the organizations contributing to stronger,
-            more connected communities.
-        </p>
-    </section>
+        <section class="page-intro" aria-labelledby="page-title">
+            <p class="eyebrow">OUR NETWORK</p>
+            <h1 id="page-title">
+                <%= title %>
+            </h1>
+            <p class="page-description">
+                Meet the organizations contributing to stronger,
+                more connected communities.
+            </p>
+        </section>
 
-    <section class="content-section" aria-label="Partner organizations">
-        <div class="organization-grid">
+        <section class="content-section" aria-label="Partner organizations">
+            <div class="organization-grid">
 
-            <% organizations.forEach(organization => { %>
-                <article class="organization-card">
-                    <img src="/images/<%= organization.logo_filename %>"
-                         alt="<%= organization.name %> logo"
-                         width="120" height="120">
+                <% organizations.forEach(organization=> { %>
+                    <article class="organization-card">
+                        <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"
+                            width="120" height="120">
 
-                    <h2><%= organization.name %></h2>
+                        <h2>
+                            <a href="/organization/<%= organization.organization_id %>">
+                                <%= organization.name %>
+                            </a>
+                        </h2>
 
-                    <p><%= organization.description %></p>
+                        <p>
+                            <%= organization.description %>
+                        </p>
 
-                    <a href="mailto:<%= organization.contact_email %>">
-                        <%= organization.contact_email %>
-                    </a>
-                </article>
-            <% }); %>
+                        <a href="mailto:<%= organization.contact_email %>">
+                            <%= organization.contact_email %>
+                        </a>
+                    </article>
+                    <% }); %>
 
-        </div>
-    </section>
+            </div>
+        </section>
 
-</main>
+    </main>
 
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
