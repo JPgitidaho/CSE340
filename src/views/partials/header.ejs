@@ -8,6 +8,7 @@
     <meta name="theme-color" content="#142f45">
     <title><%= title %> | CSE 340 Service Network</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/flash.css">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -25,32 +26,44 @@
                 </span>
             </a>
 
-
-<nav class="main-nav" aria-label="Main navigation">
-    <ul>
-        <li>
-            <a href="/" <% if (title === 'Home') { %>aria-current="page"<% } %>>
-                Home
-            </a>
-        </li>
-        <li>
-            <a href="/organizations" <% if (title === 'Our Partner Organizations') { %>aria-current="page"<% } %>>
-                Organizations
-            </a>
-        </li>
-        <li>
-            <a href="/projects" <% if (title === 'Service Projects') { %>aria-current="page"<% } %>>
-                Projects
-            </a>
-        </li>
-        <li>
-            <a href="/categories" <% if (title === 'Service Project Categories') { %>aria-current="page"<% } %>>
-                Categories
-            </a>
-        </li>
-    </ul>
-</nav>
-
+            <nav class="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li>
+                        <a href="/" <% if (title === 'Home') { %>aria-current="page"<% } %>>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/organizations" <% if (title === 'Our Partner Organizations') { %>aria-current="page"<% } %>>
+                            Organizations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/projects" <% if (title === 'Service Projects') { %>aria-current="page"<% } %>>
+                            Projects
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/categories" <% if (title === 'Service Project Categories') { %>aria-current="page"<% } %>>
+                            Categories
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
         </div>
     </header>
+
+    <% const flashMessages = flash(); %>
+
+    <% if (Object.values(flashMessages).some(items => items.length > 0)) { %>
+        <div class="flash-messages" aria-live="polite">
+            <% Object.keys(flashMessages).forEach(type => { %>
+                <% flashMessages[type].forEach(msg => { %>
+                    <div class="alert <%= type %>" role="status">
+                        <%= msg %>
+                    </div>
+                <% }); %>
+            <% }); %>
+        </div>
+    <% } %>

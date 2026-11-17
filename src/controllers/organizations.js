@@ -1,4 +1,6 @@
 
+import { body, validationResult } from 'express-validator';
+
 import {
     getOrganizationDetails,
     createOrganization
@@ -7,6 +9,32 @@ import {
 import {
     getProjectsByOrganization
 } from '../models/projects.js';
+
+const organizationValidation = [
+    body('name')
+        .trim()
+        .notEmpty()
+        .withMessage('Organization name is required')
+        .isLength({ min: 3, max: 150 })
+        .withMessage('Organization name must be between 3 and 150 characters')
+        .escape(),
+
+    body('description')
+        .trim()
+        .notEmpty()
+        .withMessage('Organization description is required')
+        .isLength({ max: 500 })
+        .withMessage('Organization description cannot exceed 500 characters')
+        .escape(),
+
+    body('contactEmail')
+        .trim()
+        .notEmpty()
+        .withMessage('Contact email is required')
+        .isEmail()
+        .withMessage('Please provide a valid email address')
+        .normalizeEmail()
+];
 
 const showOrganizationDetailsPage = async (req, res, next) => {
     try {
@@ -37,8 +65,17 @@ const showNewOrganizationForm = async (req, res) => {
 
 const processNewOrganizationForm = async (req, res, next) => {
     try {
-        const { name, description, contactEmail } = req.body;
+        const results = validationResult(req);
 
+        if (!results.isEmpty()) {
+            results.array().forEach(error => {
+                req.flash('error', error.msg);
+            });
+
+            return res.redirect('/new-organization');
+        }
+
+        const { name, description, contactEmail } = req.body;
         const logoFilename = 'placeholder-logo.png';
 
         const organizationId = await createOrganization(
@@ -47,6 +84,8 @@ const processNewOrganizationForm = async (req, res, next) => {
             contactEmail,
             logoFilename
         );
+
+        req.flash('success', 'Organization added successfully!');
 
         res.redirect(`/organization/${organizationId}`);
     } catch (error) {
@@ -57,5 +96,6 @@ const processNewOrganizationForm = async (req, res, next) => {
 export {
     showOrganizationDetailsPage,
     showNewOrganizationForm,
-    processNewOrganizationForm
+    processNewOrganizationForm,
+    organizationValidation
 };

@@ -9,7 +9,8 @@ import {
 import {
     showOrganizationDetailsPage,
     showNewOrganizationForm,
-    processNewOrganizationForm
+    processNewOrganizationForm,
+    organizationValidation
 } from './controllers/organizations.js';
 
 const router = express.Router();
@@ -20,7 +21,11 @@ router.get('/project/:id', showProjectDetailsPage);
 
 router.get('/new-organization', showNewOrganizationForm);
 
-router.post('/new-organization', processNewOrganizationForm);
+router.post(
+    '/new-organization',
+    organizationValidation,
+    processNewOrganizationForm
+);
 
 router.get('/organization/:id', showOrganizationDetailsPage);
 

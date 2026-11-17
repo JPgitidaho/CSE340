@@ -1,0 +1,38 @@
+
+.flash-messages {
+    width: min(calc(100% - 40px), var(--container));
+    margin: 20px auto 0;
+}
+
+.alert {
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--navy);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--navy);
+    font-weight: 600;
+}
+
+.alert.success {
+    border-left-color: var(--green-action);
+    background: var(--mint);
+    color: var(--green);
+}
+
+.alert.error {
+    border-left-color: var(--navy-hover);
+    background: var(--canvas);
+    color: var(--navy);
+}
+
+.alert.warning {
+    border-left-color: var(--focus);
+    background: var(--canvas);
+}
+
+.alert.info {
+    border-left-color: var(--navy);
+    background: var(--mint);
+}
