@@ -3,7 +3,10 @@ import express from 'express';
 
 import {
     showProjectsPage,
-    showProjectDetailsPage
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    projectValidation
 } from './controllers/projects.js';
 
 import {
@@ -18,6 +21,14 @@ import {
 const router = express.Router();
 
 router.get('/projects', showProjectsPage);
+
+router.get('/new-project', showNewProjectForm);
+
+router.post(
+    '/new-project',
+    projectValidation,
+    processNewProjectForm
+);
 
 router.get('/project/:id', showProjectDetailsPage);
 
