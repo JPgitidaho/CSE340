@@ -3,7 +3,8 @@ import { body, validationResult } from 'express-validator';
 
 import {
     getOrganizationDetails,
-    createOrganization
+    createOrganization,
+    updateOrganization
 } from '../models/organizations.js';
 
 import {
@@ -93,9 +94,65 @@ const processNewOrganizationForm = async (req, res, next) => {
     }
 };
 
+const showEditOrganizationForm = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const organizationDetails = await getOrganizationDetails(id);
+
+        if (!organizationDetails) {
+            return res.status(404).send('Organization not found.');
+        }
+
+        res.render('edit-organization', {
+            title: 'Edit Organization',
+            organizationDetails
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const processEditOrganizationForm = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const results = validationResult(req);
+
+        if (!results.isEmpty()) {
+            results.array().forEach(error => {
+                req.flash('error', error.msg);
+            });
+
+            return res.redirect(`/edit-organization/${id}`);
+        }
+
+        const {
+            name,
+            description,
+            contactEmail,
+            logoFilename
+        } = req.body;
+
+        await updateOrganization(
+            id,
+            name,
+            description,
+            contactEmail,
+            logoFilename
+        );
+
+        req.flash('success', 'Organization updated successfully!');
+
+        res.redirect(`/organization/${id}`);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export {
     showOrganizationDetailsPage,
     showNewOrganizationForm,
     processNewOrganizationForm,
+    showEditOrganizationForm,
+    processEditOrganizationForm,
     organizationValidation
 };

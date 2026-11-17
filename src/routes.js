@@ -10,6 +10,8 @@ import {
     showOrganizationDetailsPage,
     showNewOrganizationForm,
     processNewOrganizationForm,
+    showEditOrganizationForm,
+    processEditOrganizationForm,
     organizationValidation
 } from './controllers/organizations.js';
 
@@ -25,6 +27,14 @@ router.post(
     '/new-organization',
     organizationValidation,
     processNewOrganizationForm
+);
+
+router.get('/edit-organization/:id', showEditOrganizationForm);
+
+router.post(
+    '/edit-organization/:id',
+    organizationValidation,
+    processEditOrganizationForm
 );
 
 router.get('/organization/:id', showOrganizationDetailsPage);

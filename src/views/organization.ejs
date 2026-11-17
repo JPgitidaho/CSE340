@@ -38,12 +38,13 @@
     <% } %>
 </section>
 
-
 <main id="main-content" class="interior-main">
 
     <section class="page-intro" aria-labelledby="page-title">
         <p class="eyebrow">PARTNER ORGANIZATION</p>
+
         <h1 id="page-title"><%= organization.name %></h1>
+
         <p class="page-description">
             <%= organization.description %>
         </p>
@@ -66,6 +67,15 @@
                 <strong>Email:</strong>
                 <a href="mailto:<%= organization.contact_email %>">
                     <%= organization.contact_email %>
+                </a>
+            </p>
+
+            <p>
+                <a
+                    class="btn btn-primary"
+                    href="/edit-organization/<%= organization.organization_id %>"
+                >
+                    Edit Organization
                 </a>
             </p>
 

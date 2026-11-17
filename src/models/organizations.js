@@ -45,8 +45,36 @@ const createOrganization = async (name, description, contactEmail, logoFilename)
     return result.rows[0].organization_id;
 };
 
+const updateOrganization = async (id, name, description, contactEmail, logoFilename) => {
+    const query = `
+        UPDATE public.organization
+        SET
+            name = $1,
+            description = $2,
+            contact_email = $3,
+            logo_filename = $4
+        WHERE organization_id = $5
+        RETURNING organization_id;
+    `;
+
+    const result = await db.query(query, [
+        name,
+        description,
+        contactEmail,
+        logoFilename,
+        id
+    ]);
+
+    if (result.rows.length === 0) {
+        throw new Error('Organization not found or update failed');
+    }
+
+    return result.rows[0].organization_id;
+};
+
 export {
     getAllOrganizations,
     getOrganizationDetails,
-    createOrganization
+    createOrganization,
+    updateOrganization
 };
