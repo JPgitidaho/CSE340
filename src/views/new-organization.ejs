@@ -1,0 +1,60 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">PARTNER ORGANIZATIONS</p>
+
+        <h1 id="page-title"><%= title %></h1>
+
+        <p class="page-description">
+            Add a new organization to our service network.
+        </p>
+    </section>
+
+    <section class="content-section">
+        <form
+            class="organization-form"
+            action="/new-organization"
+            method="POST"
+        >
+            <div class="form-group">
+                <label for="name">Organization Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="contactEmail">Contact Email</label>
+
+                <input
+                    type="text"
+                    id="contactEmail"
+                    name="contactEmail"
+                >
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Create Organization
+            </button>
+        </form>
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

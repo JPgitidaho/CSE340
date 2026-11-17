@@ -1,45 +1,61 @@
+
 <%- include('partials/header') %>
 
-    <main id="main-content" class="interior-main">
+<main id="main-content" class="interior-main">
 
-        <section class="page-intro" aria-labelledby="page-title">
-            <p class="eyebrow">OUR NETWORK</p>
-            <h1 id="page-title">
-                <%= title %>
-            </h1>
-            <p class="page-description">
-                Meet the organizations contributing to stronger,
-                more connected communities.
-            </p>
-        </section>
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">OUR NETWORK</p>
 
-        <section class="content-section" aria-label="Partner organizations">
-            <div class="organization-grid">
+        <h1 id="page-title"><%= title %></h1>
 
-                <% organizations.forEach(organization=> { %>
-                    <article class="organization-card">
-                        <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"
-                            width="120" height="120">
+        <p class="page-description">
+            Meet the organizations contributing to stronger,
+            more connected communities.
+        </p>
+    </section>
 
-                        <h2>
-                            <a href="/organization/<%= organization.organization_id %>">
-                                <%= organization.name %>
-                            </a>
-                        </h2>
+    <section
+        class="content-section"
+        aria-label="Partner organizations"
+    >
+        <div class="organization-grid">
 
-                        <p>
-                            <%= organization.description %>
-                        </p>
+            <% organizations.forEach(organization => { %>
+                <article class="organization-card">
 
-                        <a href="mailto:<%= organization.contact_email %>">
-                            <%= organization.contact_email %>
+                    <img
+                        src="/images/<%= organization.logo_filename %>"
+                        alt="<%= organization.name %> logo"
+                        width="120"
+                        height="120"
+                        loading="lazy"
+                    >
+
+                    <h2>
+                        <a href="/organization/<%= organization.organization_id %>">
+                            <%= organization.name %>
                         </a>
-                    </article>
-                    <% }); %>
+                    </h2>
 
-            </div>
-        </section>
+                    <p><%= organization.description %></p>
 
-    </main>
+                    <a href="mailto:<%= organization.contact_email %>">
+                        <%= organization.contact_email %>
+                    </a>
 
-    <%- include('partials/footer') %>
+                </article>
+            <% }); %>
+
+        </div>
+
+        <p class="organization-add-link">
+            <a class="btn btn-primary" href="/new-organization">
+                Add a new organization
+            </a>
+        </p>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

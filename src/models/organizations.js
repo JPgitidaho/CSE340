@@ -1,14 +1,11 @@
+
 import db from './db.js';
 
 const getAllOrganizations = async () => {
     const query = `
-        SELECT
-            organization_id,
-            name,
-            description,
-            contact_email,
-            logo_filename
-        FROM public.organization;
+        SELECT organization_id, name, description, contact_email, logo_filename
+        FROM public.organization
+        ORDER BY organization_id;
     `;
 
     const result = await db.query(query);
@@ -17,12 +14,7 @@ const getAllOrganizations = async () => {
 
 const getOrganizationDetails = async (id) => {
     const query = `
-        SELECT
-            organization_id,
-            name,
-            description,
-            contact_email,
-            logo_filename
+        SELECT organization_id, name, description, contact_email, logo_filename
         FROM public.organization
         WHERE organization_id = $1;
     `;
@@ -31,8 +23,30 @@ const getOrganizationDetails = async (id) => {
     return result.rows[0] ?? null;
 };
 
-export {
-    getAllOrganizations,
-    getOrganizationDetails
+const createOrganization = async (name, description, contactEmail, logoFilename) => {
+    const query = `
+        INSERT INTO public.organization
+            (name, description, contact_email, logo_filename)
+        VALUES ($1, $2, $3, $4)
+        RETURNING organization_id;
+    `;
+
+    const result = await db.query(query, [
+        name,
+        description,
+        contactEmail,
+        logoFilename
+    ]);
+
+    if (result.rows.length === 0) {
+        throw new Error('Failed to create organization');
+    }
+
+    return result.rows[0].organization_id;
 };
 
+export {
+    getAllOrganizations,
+    getOrganizationDetails,
+    createOrganization
+};

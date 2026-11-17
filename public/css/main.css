@@ -734,3 +734,51 @@ main {
     transform: none;
   }
 }
+
+
+.organization-form {
+    max-width: 700px;
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+}
+
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+    outline: 2px solid var(--green-action);
+    outline-offset: 2px;
+}
+
+.organization-add-link {
+    margin-top: 32px;
+}
+
+@media (max-width: 600px) {
+    .organization-form {
+        padding: 24px;
+    }
+}
