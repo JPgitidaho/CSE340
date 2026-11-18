@@ -1,0 +1,73 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">SERVICE OPPORTUNITIES</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            Assign categories to <%= project.title %>.
+        </p>
+    </section>
+
+    <section class="content-section">
+        <form
+            class="organization-form"
+            action="/project/<%= project.project_id %>/categories"
+            method="POST"
+        >
+            <h2>Assigned Categories</h2>
+
+            <% if (assignedCategories.length === 0) { %>
+                <p>No categories assigned yet.</p>
+            <% } else { %>
+                <ul>
+                    <% assignedCategories.forEach(category => { %>
+                        <li><%= category.name %></li>
+                    <% }); %>
+                </ul>
+            <% } %>
+
+            <fieldset>
+                <legend>Select Categories</legend>
+
+                <% categories.forEach(category => { %>
+                    <% const assigned = assignedCategoryIds.includes(category.category_id); %>
+
+                    <p>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="categoryIds"
+                                value="<%= category.category_id %>"
+                                <%= assigned ? 'checked disabled' : '' %>
+                            >
+                            <%= category.name %>
+                            <% if (assigned) { %>
+                                (Already assigned)
+                            <% } %>
+                        </label>
+                    </p>
+                <% }); %>
+            </fieldset>
+
+            <% if (categories.some(category => !assignedCategoryIds.includes(category.category_id))) { %>
+                <p>
+                    <button type="submit" class="btn btn-primary">
+                        Assign Selected Categories
+                    </button>
+                </p>
+            <% } %>
+
+            <p>
+                <a href="/project/<%= project.project_id %>">
+                    Back to Project Details
+                </a>
+            </p>
+        </form>
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

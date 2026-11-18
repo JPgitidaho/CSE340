@@ -18,6 +18,11 @@ import {
     organizationValidation
 } from './controllers/organizations.js';
 
+import {
+    showAssignCategoriesForm,
+    processAssignCategories
+} from './controllers/projectCategories.js';
+
 const router = express.Router();
 
 router.get('/projects', showProjectsPage);
@@ -28,6 +33,16 @@ router.post(
     '/new-project',
     projectValidation,
     processNewProjectForm
+);
+
+router.get(
+    '/project/:id/categories',
+    showAssignCategoriesForm
+);
+
+router.post(
+    '/project/:id/categories',
+    processAssignCategories
 );
 
 router.get('/project/:id', showProjectDetailsPage);
