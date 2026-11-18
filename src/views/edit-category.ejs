@@ -1,0 +1,57 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">SERVICE CATEGORIES</p>
+
+        <h1 id="page-title"><%= title %></h1>
+
+        <p class="page-description">
+            Update an existing service category.
+        </p>
+    </section>
+
+    <section class="content-section">
+
+        <form
+            class="organization-form"
+            action="/edit-category/<%= category.category_id %>"
+            method="POST"
+        >
+            <div class="form-group">
+                <label for="name">Category Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="<%= category.name %>"
+                    maxlength="100"
+                    required
+                >
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Update Category
+            </button>
+
+            <p>
+                <a href="/new-category">
+                    Add Another Category
+                </a>
+            </p>
+
+            <p>
+                <a href="/categories">
+                    Back to Categories
+                </a>
+            </p>
+        </form>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

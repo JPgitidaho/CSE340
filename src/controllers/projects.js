@@ -5,7 +5,8 @@ import {
     getAllProjects,
     getUpcomingProjects,
     getProjectDetails,
-    createProject
+    createProject,
+    updateProject
 } from '../models/projects.js';
 
 import { getAllOrganizations } from '../models/organizations.js';
@@ -15,36 +16,41 @@ const NUMBER_OF_UPCOMING_PROJECTS = 5;
 const projectValidation = [
     body('title')
         .trim()
-        .notEmpty().withMessage('Title is required')
+        .notEmpty()
+        .withMessage('Title is required')
         .bail()
         .isLength({ min: 3, max: 150 })
         .withMessage('Title must be between 3 and 150 characters'),
 
     body('description')
         .trim()
-        .notEmpty().withMessage('Description is required')
+        .notEmpty()
+        .withMessage('Description is required')
         .bail()
         .isLength({ max: 1000 })
         .withMessage('Description cannot exceed 1000 characters'),
 
     body('location')
         .trim()
-        .notEmpty().withMessage('Location is required')
+        .notEmpty()
+        .withMessage('Location is required')
         .bail()
         .isLength({ max: 200 })
         .withMessage('Location cannot exceed 200 characters'),
 
     body('date')
-        .notEmpty().withMessage('Date is required')
+        .notEmpty()
+        .withMessage('Date is required')
         .bail()
         .isISO8601({ strict: true })
         .withMessage('Date must be a valid date'),
 
     body('organizationId')
-        .notEmpty().withMessage('Organization is required')
+        .notEmpty()
+        .withMessage('Organization is required')
         .bail()
         .isInt({ min: 1 })
-        .withMessage('Organization must be a valid integer')
+        .withMessage('Organization must be valid')
 ];
 
 const showProjectsPage = async (req, res, next) => {
@@ -75,6 +81,11 @@ const showProjectsPage = async (req, res, next) => {
 const showProjectDetailsPage = async (req, res, next) => {
     try {
         const { id } = req.params;
+
+        if (!/^[1-9]\d*$/.test(id)) {
+            return res.status(404).send('Project not found.');
+        }
+
         const project = await getProjectDetails(id);
 
         if (!project) {
@@ -104,17 +115,17 @@ const showNewProjectForm = async (req, res, next) => {
 };
 
 const processNewProjectForm = async (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        errors.array().forEach(error => {
-            req.flash('error', error.msg);
-        });
-
-        return res.redirect('/new-project');
-    }
-
     try {
+        const results = validationResult(req);
+
+        if (!results.isEmpty()) {
+            results.array().forEach(error => {
+                req.flash('error', error.msg);
+            });
+
+            return res.redirect('/new-project');
+        }
+
         const {
             title,
             description,
@@ -138,14 +149,83 @@ const processNewProjectForm = async (req, res, next) => {
 
         return res.redirect('/projects');
     } catch (error) {
-        console.error('Error creating new project:', error);
+        next(error);
+    }
+};
 
-        req.flash(
-            'error',
-            'There was an error creating the service project.'
+const showEditProjectForm = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        if (!/^[1-9]\d*$/.test(id)) {
+            return res.status(404).send('Project not found.');
+        }
+
+        const project = await getProjectDetails(id);
+
+        if (!project) {
+            return res.status(404).send('Project not found.');
+        }
+
+        const organizations = await getAllOrganizations();
+
+        res.render('edit-project', {
+            title: 'Edit Service Project',
+            project,
+            organizations
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const processEditProjectForm = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        if (!/^[1-9]\d*$/.test(id)) {
+            return res.status(404).send('Project not found.');
+        }
+
+        const results = validationResult(req);
+
+        if (!results.isEmpty()) {
+            results.array().forEach(error => {
+                req.flash('error', error.msg);
+            });
+
+            return res.redirect(`/edit-project/${id}`);
+        }
+
+        const {
+            title,
+            description,
+            location,
+            date,
+            organizationId
+        } = req.body;
+
+        const updatedProject = await updateProject(
+            id,
+            title,
+            description,
+            location,
+            date,
+            organizationId
         );
 
-        return res.redirect('/new-project');
+        if (!updatedProject) {
+            return res.status(404).send('Project not found.');
+        }
+
+        req.flash(
+            'success',
+            'Service project updated successfully!'
+        );
+
+        return res.redirect(`/project/${id}`);
+    } catch (error) {
+        next(error);
     }
 };
 
@@ -154,5 +234,7 @@ export {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
     projectValidation
 };

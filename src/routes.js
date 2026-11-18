@@ -6,6 +6,8 @@ import {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
+    showEditProjectForm,
+    processEditProjectForm,
     projectValidation
 } from './controllers/projects.js';
 
@@ -23,6 +25,8 @@ import {
     processAssignCategories
 } from './controllers/projectCategories.js';
 
+import categoryManagementRouter from './categoryManagementRoutes.js';
+
 const router = express.Router();
 
 router.get('/projects', showProjectsPage);
@@ -35,15 +39,17 @@ router.post(
     processNewProjectForm
 );
 
-router.get(
-    '/project/:id/categories',
-    showAssignCategoriesForm
-);
+router.get('/edit-project/:id', showEditProjectForm);
 
 router.post(
-    '/project/:id/categories',
-    processAssignCategories
+    '/edit-project/:id',
+    projectValidation,
+    processEditProjectForm
 );
+
+router.get('/project/:id/categories', showAssignCategoriesForm);
+
+router.post('/project/:id/categories', processAssignCategories);
 
 router.get('/project/:id', showProjectDetailsPage);
 
@@ -64,5 +70,7 @@ router.post(
 );
 
 router.get('/organization/:id', showOrganizationDetailsPage);
+
+router.use(categoryManagementRouter);
 
 export default router;

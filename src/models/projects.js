@@ -105,11 +105,39 @@ const createProject = async (
         throw new Error('Failed to create project');
     }
 
-    if (process.env.ENABLE_SQL_LOGGING === 'true') {
-        console.log('Created new project with ID:', result.rows[0].project_id);
-    }
-
     return result.rows[0].project_id;
+};
+
+const updateProject = async (
+    id,
+    title,
+    description,
+    location,
+    date,
+    organizationId
+) => {
+    const query = `
+        UPDATE public.project
+        SET
+            title = $1,
+            description = $2,
+            location = $3,
+            date = $4,
+            organization_id = $5
+        WHERE project_id = $6
+        RETURNING project_id;
+    `;
+
+    const result = await db.query(query, [
+        title,
+        description,
+        location,
+        date,
+        organizationId,
+        id
+    ]);
+
+    return result.rows[0] ?? null;
 };
 
 export {
@@ -117,5 +145,6 @@ export {
     getUpcomingProjects,
     getProjectDetails,
     getProjectsByOrganization,
-    createProject
+    createProject,
+    updateProject
 };

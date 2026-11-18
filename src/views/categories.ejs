@@ -5,31 +5,57 @@
 
     <section class="page-intro" aria-labelledby="page-title">
         <p class="eyebrow">AREAS OF ACTION</p>
+
         <h1 id="page-title"><%= title %></h1>
+
         <p class="page-description">
             Discover the different areas where community
             service can make a meaningful difference.
         </p>
+
+        <p>
+            <a class="btn btn-primary" href="/new-category">
+                Add New Category
+            </a>
+        </p>
     </section>
 
     <section class="content-section" aria-labelledby="categories-heading">
+
         <h2 id="categories-heading" class="section-title">
             Explore Service Categories
         </h2>
 
-        <div class="service-category-grid">
+        <% if (categories.length === 0) { %>
+            <p>No service categories are available.</p>
+        <% } else { %>
 
-            <% categories.forEach((category, index) => { %>
-                <article class="service-category-card">
-                    <span class="category-number">
-                        <%= String(index + 1).padStart(2, '0') %>
-                    </span>
+            <div class="service-category-grid">
 
-                    <h3><%= category.name %></h3>
-                </article>
-            <% }); %>
+                <% categories.forEach((category, index) => { %>
 
-        </div>
+                    <article class="service-category-card">
+
+                        <span class="category-number">
+                            <%= String(index + 1).padStart(2, '0') %>
+                        </span>
+
+                        <h3><%= category.name %></h3>
+
+                        <p>
+                            <a href="/edit-category/<%= category.category_id %>">
+                                Edit Category
+                            </a>
+                        </p>
+
+                    </article>
+
+                <% }); %>
+
+            </div>
+
+        <% } %>
+
     </section>
 
 </main>
