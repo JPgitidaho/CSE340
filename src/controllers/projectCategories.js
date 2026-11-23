@@ -4,7 +4,7 @@ import { getProjectDetails } from '../models/projects.js';
 import {
     getAllCategories,
     getProjectCategories,
-    addProjectCategories
+    syncProjectCategories
 } from '../models/projectCategories.js';
 
 const showAssignCategoriesForm = async (req, res, next) => {
@@ -31,7 +31,7 @@ const showAssignCategoriesForm = async (req, res, next) => {
         );
 
         res.render('project-categories', {
-            title: 'Assign Project Categories',
+            title: 'Manage Project Categories',
             project,
             categories,
             assignedCategories,
@@ -63,10 +63,12 @@ const processAssignCategories = async (req, res, next) => {
             : selected ? [selected] : [];
 
         if (
-            values.length === 0 ||
-            values.some(value => !/^\d+$/.test(String(value)))
+            values.some(value =>
+                !/^[1-9]\d*$/.test(String(value)) ||
+                !Number.isSafeInteger(Number(value))
+            )
         ) {
-            req.flash('error', 'Select at least one valid category.');
+            req.flash('error', 'One or more categories are invalid.');
             return res.redirect(`/project/${projectId}/categories`);
         }
 
@@ -89,15 +91,15 @@ const processAssignCategories = async (req, res, next) => {
             return res.redirect(`/project/${projectId}/categories`);
         }
 
-        const insertedCount = await addProjectCategories(
+        const result = await syncProjectCategories(
             projectId,
             categoryIds
         );
 
-        if (insertedCount === 0) {
-            req.flash('success', 'These categories are already assigned.');
+        if (result.added_count === 0 && result.removed_count === 0) {
+            req.flash('success', 'No changes were needed.');
         } else {
-            req.flash('success', 'Project categories assigned successfully!');
+            req.flash('success', 'Project categories updated successfully!');
         }
 
         return res.redirect(`/project/${projectId}/categories`);

@@ -6,10 +6,10 @@ import path from 'path';
 
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
-import { getAllCategories } from './src/models/categories.js';
 
 import projectRoutes from './src/routes.js';
 import flash from './src/middleware/flash.js';
+
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const PORT = process.env.PORT || 3000;
@@ -64,18 +64,7 @@ app.get('/organizations', async (req, res, next) => {
     }
 });
 
-app.get('/categories', async (req, res, next) => {
-    try {
-        const categories = await getAllCategories();
 
-        res.render('categories', {
-            title: 'Service Project Categories',
-            categories
-        });
-    } catch (error) {
-        next(error);
-    }
-});
 
 app.use(projectRoutes);
 

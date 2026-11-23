@@ -49,8 +49,42 @@ const addProjectCategories = async (projectId, categoryIds) => {
     return result.rowCount;
 };
 
+const syncProjectCategories = async (projectId, categoryIds) => {
+    const query = `
+        WITH removed AS (
+            DELETE FROM public.project_category
+            WHERE project_id = $1
+                AND NOT (category_id = ANY($2::integer[]))
+            RETURNING category_id
+        ),
+        added AS (
+            INSERT INTO public.project_category
+                (project_id, category_id)
+            SELECT
+                $1,
+                category_id
+            FROM public.category
+            WHERE category_id = ANY($2::integer[])
+            ON CONFLICT (project_id, category_id)
+            DO NOTHING
+            RETURNING category_id
+        )
+        SELECT
+            (SELECT COUNT(*)::integer FROM added) AS added_count,
+            (SELECT COUNT(*)::integer FROM removed) AS removed_count;
+    `;
+
+    const result = await db.query(query, [
+        projectId,
+        categoryIds
+    ]);
+
+    return result.rows[0];
+};
+
 export {
     getAllCategories,
     getProjectCategories,
-    addProjectCategories
+    addProjectCategories,
+    syncProjectCategories
 };

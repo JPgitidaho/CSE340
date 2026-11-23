@@ -1,0 +1,94 @@
+<%- include('partials/header') %>
+
+    <main id="main-content" class="interior-main">
+
+        <section class="page-intro" aria-labelledby="page-title">
+            <p class="eyebrow">SERVICE CATEGORY DETAILS</p>
+            <h1 id="page-title">
+                <%= category.name %>
+            </h1>
+
+            <p class="page-description">
+                Explore service projects associated with this category.
+            </p>
+
+            <p>
+                <a href="/categories">Back to Categories</a>
+            </p>
+        </section>
+
+        <section class="content-section" aria-labelledby="category-projects-heading">
+
+            <h2 id="category-projects-heading" class="section-title">
+                Projects in This Category
+            </h2>
+
+            <% if (projects.length===0) { %>
+                <p>No projects are assigned to this category yet.</p>
+                <% } else { %>
+
+                    <div class="project-grid">
+
+                        <% projects.forEach(project=> { %>
+
+                            <article class="project-card">
+
+                                <h3>
+                                    <a href="/project/<%= project.project_id %>">
+                                        <%= project.title %>
+                                    </a>
+                                </h3>
+
+                                <p>
+                                    <%= project.description %>
+                                </p>
+
+                                <p>
+                                    <strong>Date:</strong>
+                                    <%= new Date(project.date).toLocaleDateString('en-US', { year: 'numeric' ,
+                                        month: 'long' , day: 'numeric' , timeZone: 'UTC' }) %>
+                                </p>
+
+                                <p>
+                                    <strong>Location:</strong>
+                                    <%= project.location %>
+                                </p>
+
+                                <p>
+                                    <strong>Organization:</strong>
+                                    <a href="/organization/<%= project.organization_id %>">
+                                        <%= project.organization_name %>
+                                    </a>
+                                </p>
+
+                                <h4>Project Categories</h4>
+
+                                <ul>
+                                    <% project.categories.forEach(item=> { %>
+                                        <li>
+                                            <% if (Number(item.category_id)===Number(category.category_id)) { %>
+                                                <span>
+                                                    <%= item.name %>
+                                                </span>
+                                                <% } else { %>
+                                                    <a href="/category/<%= item.category_id %>">
+                                                        <%= item.name %>
+                                                    </a>
+                                                    <% } %>
+                                        </li>
+                                        <% }); %>
+                                </ul>
+
+                            </article>
+
+                            <% }); %>
+
+                    </div>
+
+                    <% } %>
+
+        </section>
+
+    </main>
+
+    <%- include('partials/footer') %>

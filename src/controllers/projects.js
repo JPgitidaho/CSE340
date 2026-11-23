@@ -10,6 +10,7 @@ import {
 } from '../models/projects.js';
 
 import { getAllOrganizations } from '../models/organizations.js';
+import { getProjectCategories } from '../models/projectCategories.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -92,9 +93,12 @@ const showProjectDetailsPage = async (req, res, next) => {
             return res.status(404).send('Project not found.');
         }
 
+        const categories = await getProjectCategories(id);
+
         res.render('project', {
             title: project.title,
-            project
+            project,
+            categories
         });
     } catch (error) {
         next(error);

@@ -12,47 +12,69 @@
             Meet the organizations contributing to stronger,
             more connected communities.
         </p>
-    </section>
 
-    <section
-        class="content-section"
-        aria-label="Partner organizations"
-    >
-        <div class="organization-grid">
-
-            <% organizations.forEach(organization => { %>
-                <article class="organization-card">
-
-                    <img
-                        src="/images/<%= organization.logo_filename %>"
-                        alt="<%= organization.name %> logo"
-                        width="120"
-                        height="120"
-                        loading="lazy"
-                    >
-
-                    <h2>
-                        <a href="/organization/<%= organization.organization_id %>">
-                            <%= organization.name %>
-                        </a>
-                    </h2>
-
-                    <p><%= organization.description %></p>
-
-                    <a href="mailto:<%= organization.contact_email %>">
-                        <%= organization.contact_email %>
-                    </a>
-
-                </article>
-            <% }); %>
-
-        </div>
-
-        <p class="organization-add-link">
+        <p>
             <a class="btn btn-primary" href="/new-organization">
-                Add a new organization
+                Add New Organization
             </a>
         </p>
+    </section>
+
+    <section class="content-section" aria-label="Partner organizations">
+
+        <% if (organizations.length === 0) { %>
+
+            <p>No organizations are available.</p>
+
+        <% } else { %>
+
+            <div class="organization-grid">
+
+                <% organizations.forEach(organization => { %>
+
+                    <article class="organization-card">
+
+                        <% if (organization.logo_filename) { %>
+                            <img
+                                src="/images/<%= organization.logo_filename %>"
+                                alt="<%= organization.name %> logo"
+                                width="120"
+                                height="120"
+                                loading="lazy"
+                            >
+                        <% } %>
+
+                        <h2>
+                            <a href="/organization/<%= organization.organization_id %>">
+                                <%= organization.name %>
+                            </a>
+                        </h2>
+
+                        <% if (organization.description) { %>
+                            <p><%= organization.description %></p>
+                        <% } %>
+
+                        <% if (organization.contact_email) { %>
+                            <p>
+                                <a href="mailto:<%= organization.contact_email %>">
+                                    <%= organization.contact_email %>
+                                </a>
+                            </p>
+                        <% } %>
+
+                        <p>
+                            <a href="/edit-organization/<%= organization.organization_id %>">
+                                Edit Organization
+                            </a>
+                        </p>
+
+                    </article>
+
+                <% }); %>
+
+            </div>
+
+        <% } %>
 
     </section>
 

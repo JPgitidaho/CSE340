@@ -7,65 +7,68 @@
         <p class="eyebrow">SERVICE OPPORTUNITIES</p>
         <h1 id="page-title"><%= title %></h1>
         <p class="page-description">
-            Assign categories to <%= project.title %>.
+            Manage categories for <%= project.title %>.
         </p>
     </section>
 
     <section class="content-section">
+
         <form
             class="organization-form"
             action="/project/<%= project.project_id %>/categories"
             method="POST"
         >
-            <h2>Assigned Categories</h2>
 
-            <% if (assignedCategories.length === 0) { %>
-                <p>No categories assigned yet.</p>
-            <% } else { %>
-                <ul>
-                    <% assignedCategories.forEach(category => { %>
-                        <li><%= category.name %></li>
-                    <% }); %>
-                </ul>
-            <% } %>
+            <h2>Project Categories</h2>
+
+            <p>
+                Select the categories for this project.
+                Uncheck a category to remove it.
+            </p>
 
             <fieldset>
                 <legend>Select Categories</legend>
 
-                <% categories.forEach(category => { %>
-                    <% const assigned = assignedCategoryIds.includes(category.category_id); %>
+                <% if (categories.length === 0) { %>
+                    <p>No categories are available.</p>
+                <% } else { %>
 
-                    <p>
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="categoryIds"
-                                value="<%= category.category_id %>"
-                                <%= assigned ? 'checked disabled' : '' %>
-                            >
-                            <%= category.name %>
-                            <% if (assigned) { %>
-                                (Already assigned)
-                            <% } %>
-                        </label>
-                    </p>
-                <% }); %>
+                    <% categories.forEach(category => { %>
+
+                        <% const assigned = assignedCategoryIds.includes(category.category_id); %>
+
+                        <p>
+                            <label for="category-<%= category.category_id %>">
+                                <input
+                                    type="checkbox"
+                                    id="category-<%= category.category_id %>"
+                                    name="categoryIds"
+                                    value="<%= category.category_id %>"
+                                    <%= assigned ? 'checked' : '' %>
+                                >
+                                <%= category.name %>
+                            </label>
+                        </p>
+
+                    <% }); %>
+
+                <% } %>
             </fieldset>
 
-            <% if (categories.some(category => !assignedCategoryIds.includes(category.category_id))) { %>
-                <p>
-                    <button type="submit" class="btn btn-primary">
-                        Assign Selected Categories
-                    </button>
-                </p>
-            <% } %>
+            <p>
+                <button type="submit" class="btn btn-primary">
+                    Save Category Assignments
+                </button>
+            </p>
 
             <p>
                 <a href="/project/<%= project.project_id %>">
                     Back to Project Details
                 </a>
             </p>
+
         </form>
+
     </section>
 
 </main>

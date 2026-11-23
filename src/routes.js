@@ -26,6 +26,10 @@ import {
 } from './controllers/projectCategories.js';
 
 import categoryManagementRouter from './categoryManagementRoutes.js';
+import {
+    showCategoriesPage,
+    showCategoryDetailsPage
+} from './controllers/categories.js';
 
 const router = express.Router();
 
@@ -70,6 +74,8 @@ router.post(
 );
 
 router.get('/organization/:id', showOrganizationDetailsPage);
+router.get('/categories', showCategoriesPage);
+router.get('/category/:id', showCategoryDetailsPage);
 
 router.use(categoryManagementRouter);
 

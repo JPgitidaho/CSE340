@@ -10,7 +10,9 @@
     </section>
 
     <section class="content-section" aria-label="Project information">
+
         <article class="project-card">
+
             <h2>Project Information</h2>
 
             <p>
@@ -35,10 +37,44 @@
                 </a>
             </p>
 
+            <h3>Project Categories</h3>
+
+            <% if (categories.length === 0) { %>
+
+                <p>No categories assigned to this project.</p>
+
+            <% } else { %>
+
+                <ul>
+                    <% categories.forEach(category => { %>
+                        <li>
+                            <a href="/category/<%= category.category_id %>">
+                                <%= category.name %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+
+            <% } %>
+
+            <p>
+                <a href="/project/<%= project.project_id %>/categories">
+                    Manage Project Categories
+                </a>
+            </p>
+
+            <p>
+                <a href="/edit-project/<%= project.project_id %>">
+                    Edit Project
+                </a>
+            </p>
+
             <p>
                 <a href="/projects">Back to Projects</a>
             </p>
+
         </article>
+
     </section>
 
 </main>
