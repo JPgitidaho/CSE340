@@ -1,0 +1,65 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">USER ACCOUNT</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            Create an account to join our service network.
+        </p>
+    </section>
+
+    <section class="content-section">
+
+        <form class="organization-form" action="/register" method="POST">
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    minlength="3"
+                    maxlength="100"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    maxlength="100"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    minlength="8"
+                    autocomplete="new-password"
+                    required
+                >
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>

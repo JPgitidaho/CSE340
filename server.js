@@ -10,7 +10,6 @@ import { getAllOrganizations } from './src/models/organizations.js';
 import projectRoutes from './src/routes.js';
 import flash from './src/middleware/flash.js';
 
-
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -45,6 +44,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = Boolean(
+        req.session && req.session.user
+    );
+
+    res.locals.NODE_ENV = NODE_ENV;
+
+    next();
+});
+
 app.get('/', (req, res) => {
     res.render('home', {
         title: 'Home'
@@ -63,8 +72,6 @@ app.get('/organizations', async (req, res, next) => {
         next(error);
     }
 });
-
-
 
 app.use(projectRoutes);
 
