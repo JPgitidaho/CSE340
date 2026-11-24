@@ -26,6 +26,7 @@ import {
 } from './controllers/projectCategories.js';
 
 import categoryManagementRouter from './categoryManagementRoutes.js';
+
 import {
     showCategoriesPage,
     showCategoryDetailsPage
@@ -41,68 +42,85 @@ import {
     showDashboard
 } from './controllers/users.js';
 
-
-
 const router = express.Router();
-
 
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
 
 router.get('/login', showLoginForm);
-
 router.post('/login', processLoginForm);
-
 router.get('/logout', processLogout);
-
 
 router.get('/dashboard', requireLogin, showDashboard);
 
-
 router.get('/projects', showProjectsPage);
+router.get('/project/:id', showProjectDetailsPage);
 
-router.get('/new-project', showNewProjectForm);
+router.get('/new-project', requireLogin, showNewProjectForm);
 
 router.post(
     '/new-project',
+    requireLogin,
     projectValidation,
     processNewProjectForm
 );
 
-router.get('/edit-project/:id', showEditProjectForm);
+router.get(
+    '/edit-project/:id',
+    requireLogin,
+    showEditProjectForm
+);
 
 router.post(
     '/edit-project/:id',
+    requireLogin,
     projectValidation,
     processEditProjectForm
 );
 
-router.get('/project/:id/categories', showAssignCategoriesForm);
+router.get(
+    '/project/:id/categories',
+    requireLogin,
+    showAssignCategoriesForm
+);
 
-router.post('/project/:id/categories', processAssignCategories);
+router.post(
+    '/project/:id/categories',
+    requireLogin,
+    processAssignCategories
+);
 
-router.get('/project/:id', showProjectDetailsPage);
-
-router.get('/new-organization', showNewOrganizationForm);
+router.get(
+    '/new-organization',
+    requireLogin,
+    showNewOrganizationForm
+);
 
 router.post(
     '/new-organization',
+    requireLogin,
     organizationValidation,
     processNewOrganizationForm
 );
 
-router.get('/edit-organization/:id', showEditOrganizationForm);
+router.get(
+    '/edit-organization/:id',
+    requireLogin,
+    showEditOrganizationForm
+);
 
 router.post(
     '/edit-organization/:id',
+    requireLogin,
     organizationValidation,
     processEditOrganizationForm
 );
 
 router.get('/organization/:id', showOrganizationDetailsPage);
+
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
 
-router.use(categoryManagementRouter);
+router.use(requireLogin, categoryManagementRouter);
 
 export default router;
