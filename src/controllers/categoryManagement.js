@@ -39,7 +39,7 @@ const processNewCategoryForm = async (req, res, next) => {
 
         req.flash('success', 'Category created successfully!');
 
-        return res.redirect(`/edit-category/${categoryId}`);
+        return res.redirect(`/category/${categoryId}`);
     } catch (error) {
         if (error.code === '23505') {
             req.flash('error', 'A category with this name already exists.');
@@ -102,7 +102,7 @@ const processEditCategoryForm = async (req, res, next) => {
 
         req.flash('success', 'Category updated successfully!');
 
-        return res.redirect(`/edit-category/${id}`);
+        return res.redirect(`/category/${id}`);
     } catch (error) {
         if (error.code === '23505') {
             req.flash('error', 'A category with this name already exists.');
