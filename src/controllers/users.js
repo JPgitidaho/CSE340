@@ -141,7 +141,6 @@ const requireLogin = (req, res, next) => {
 const showDashboard = (req, res) => {
     const user = req.session.user;
 
-    console.log('Dashboard session role:', user?.role_name);
 
     res.render('dashboard', {
         title: 'Dashboard',
