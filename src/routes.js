@@ -32,6 +32,7 @@ import {
     showCategoryDetailsPage
 } from './controllers/categories.js';
 
+
 import {
     showUserRegistrationForm,
     processUserRegistrationForm,
@@ -40,8 +41,10 @@ import {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
 } from './controllers/users.js';
+
 
 const router = express.Router();
 
@@ -53,6 +56,9 @@ router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 
 router.get('/dashboard', requireLogin, showDashboard);
+
+router.get('/users', requireRole('admin'), showUsersPage);
+
 
 router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);

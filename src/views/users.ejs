@@ -1,0 +1,56 @@
+
+<%- include('partials/header') %>
+
+<main id="main-content" class="interior-main">
+
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">ADMINISTRATION</p>
+        <h1 id="page-title"><%= title %></h1>
+        <p class="page-description">
+            View registered users and their assigned roles.
+        </p>
+    </section>
+
+    <section class="content-section" aria-labelledby="users-heading">
+
+        <h2 id="users-heading" class="section-title">
+            User Accounts
+        </h2>
+
+        <% if (users.length === 0) { %>
+            <p>No registered users found.</p>
+        <% } else { %>
+
+            <div class="organization-grid">
+
+                <% users.forEach(account => { %>
+                    <article class="organization-card">
+
+                        <h3><%= account.name %></h3>
+
+                        <p>
+                            <strong>Email:</strong>
+                            <%= account.email %>
+                        </p>
+
+                        <p>
+                            <strong>Role:</strong>
+                            <%= account.role_name %>
+                        </p>
+
+                    </article>
+                <% }); %>
+
+            </div>
+
+        <% } %>
+
+        <p>
+            <a href="/dashboard">Back to Dashboard</a>
+        </p>
+
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>
