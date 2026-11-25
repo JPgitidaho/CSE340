@@ -118,6 +118,7 @@ const showNewProjectForm = async (req, res, next) => {
     }
 };
 
+
 const processNewProjectForm = async (req, res, next) => {
     try {
         const results = validationResult(req);
@@ -138,7 +139,7 @@ const processNewProjectForm = async (req, res, next) => {
             organizationId
         } = req.body;
 
-        await createProject(
+        const newProjectId = await createProject(
             title,
             description,
             location,
@@ -151,11 +152,12 @@ const processNewProjectForm = async (req, res, next) => {
             'New service project created successfully!'
         );
 
-        return res.redirect('/projects');
+        return res.redirect(`/project/${newProjectId}`);
     } catch (error) {
         next(error);
     }
 };
+
 
 const showEditProjectForm = async (req, res, next) => {
     try {
