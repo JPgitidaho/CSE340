@@ -38,14 +38,16 @@
                 </p>
             <% } %>
 
-            <p>
-                <a
-                    class="btn btn-primary"
-                    href="/edit-organization/<%= organization.organization_id %>"
-                >
-                    Edit Organization
-                </a>
-            </p>
+            <% if (user && user.role_name === 'admin') { %>
+                <p>
+                    <a
+                        class="btn btn-primary"
+                        href="/edit-organization/<%= organization.organization_id %>"
+                    >
+                        Edit Organization
+                    </a>
+                </p>
+            <% } %>
 
             <p>
                 <a href="/organizations">Back to Organizations</a>

@@ -13,11 +13,13 @@
             more connected communities.
         </p>
 
-        <p>
-            <a class="btn btn-primary" href="/new-organization">
-                Add New Organization
-            </a>
-        </p>
+        <% if (user && user.role_name === 'admin') { %>
+            <p>
+                <a class="btn btn-primary" href="/new-organization">
+                    Add New Organization
+                </a>
+            </p>
+        <% } %>
     </section>
 
     <section class="content-section" aria-label="Partner organizations">
@@ -62,11 +64,13 @@
                             </p>
                         <% } %>
 
-                        <p>
-                            <a href="/edit-organization/<%= organization.organization_id %>">
-                                Edit Organization
-                            </a>
-                        </p>
+                        <% if (user && user.role_name === 'admin') { %>
+                            <p>
+                                <a href="/edit-organization/<%= organization.organization_id %>">
+                                    Edit Organization
+                                </a>
+                            </p>
+                        <% } %>
 
                     </article>
 

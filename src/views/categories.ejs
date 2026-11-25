@@ -1,68 +1,71 @@
+
 <%- include('partials/header') %>
 
-    <main id="main-content" class="interior-main">
+<main id="main-content" class="interior-main">
 
-        <section class="page-intro" aria-labelledby="page-title">
-            <p class="eyebrow">AREAS OF ACTION</p>
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">AREAS OF ACTION</p>
 
-            <h1 id="page-title">
-                <%= title %>
-            </h1>
+        <h1 id="page-title"><%= title %></h1>
 
-            <p class="page-description">
-                Discover the different areas where community
-                service can make a meaningful difference.
-            </p>
+        <p class="page-description">
+            Discover the different areas where community
+            service can make a meaningful difference.
+        </p>
 
+        <% if (user && user.role_name === 'admin') { %>
             <p>
                 <a class="btn btn-primary" href="/new-category">
                     Add New Category
                 </a>
             </p>
-        </section>
+        <% } %>
+    </section>
 
-        <section class="content-section" aria-labelledby="categories-heading">
+    <section class="content-section" aria-labelledby="categories-heading">
 
-            <h2 id="categories-heading" class="section-title">
-                Explore Service Categories
-            </h2>
+        <h2 id="categories-heading" class="section-title">
+            Explore Service Categories
+        </h2>
 
-            <% if (categories.length===0) { %>
-                <p>No service categories are available.</p>
-                <% } else { %>
+        <% if (categories.length === 0) { %>
+            <p>No service categories are available.</p>
+        <% } else { %>
 
-                    <div class="service-category-grid">
+            <div class="service-category-grid">
 
-                        <% categories.forEach((category, index)=> { %>
+                <% categories.forEach((category, index) => { %>
 
-                            <article class="service-category-card">
+                    <article class="service-category-card">
 
-                                <span class="category-number">
-                                    <%= String(index + 1).padStart(2, '0' ) %>
-                                </span>
+                        <span class="category-number">
+                            <%= String(index + 1).padStart(2, '0') %>
+                        </span>
 
-                                <h3>
-                                    <a href="/category/<%= category.category_id %>">
-                                        <%= category.name %>
-                                    </a>
-                                </h3>
+                        <h3>
+                            <a href="/category/<%= category.category_id %>">
+                                <%= category.name %>
+                            </a>
+                        </h3>
 
-                                <p>
-                                    <a href="/edit-category/<%= category.category_id %>">
-                                        Edit Category
-                                    </a>
-                                </p>
+                        <% if (user && user.role_name === 'admin') { %>
+                            <p>
+                                <a href="/edit-category/<%= category.category_id %>">
+                                    Edit Category
+                                </a>
+                            </p>
+                        <% } %>
 
-                            </article>
+                    </article>
 
-                            <% }); %>
+                <% }); %>
 
-                    </div>
+            </div>
 
-                    <% } %>
+        <% } %>
 
-        </section>
+    </section>
 
-    </main>
+</main>
 
-    <%- include('partials/footer') %>
+<%- include('partials/footer') %>
